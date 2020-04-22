@@ -9,8 +9,9 @@ def sum_list(a):
         x = dict(x, **i)
     return [x]
 
-nome_revista = input()
-a = open(nome_revista, 'r')
+nome_revista = input('Numero da revista:')
+nome_revista = nome_revista.upper()
+a = open(nome_revista+'.txt', 'r', encoding='utf-8')
 
 
 list_cd = []
