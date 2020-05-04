@@ -18,7 +18,7 @@ def busca_pedido(cod):
         params = pickle.load(p)
     
     s = requests.Session()
-    x = s.post(url_post, headers=params['headers'], cookies = params['cookies'],data = payload, verify=False)
+    x = s.post(url_post, headers=params['headers'], cookies = params['cookies'],data = payload, verify=False, timeout=5)
 
     return x
 
@@ -38,7 +38,7 @@ def busca_(cod):
         params = pickle.load(p)
     
     s = requests.Session()
-    x = s.post(url_post, headers=params['headers'], cookies = params['cookies'],data = payload, verify=False)
+    x = s.post(url_post, headers=params['headers'], cookies = params['cookies'],data = payload, verify=False, timeout=5)
 
     return x
 
