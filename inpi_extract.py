@@ -1,6 +1,7 @@
 from functools import reduce
 import pandas as pd 
 from main import main_patente, main_desenho
+from create_cookie import create_cookie
 
 
 def sum_list(a):
@@ -45,8 +46,8 @@ df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 
 if nome_revista[0] == 'P':
     df1 = df1.loc[(df1['(Cd)'] == '6.1')|(df1['(Cd)'] == '2.5')|(df1['(Cd)'] == '8.6')|(df1['(Cd)'] == '15.21')]
-elif nome_revista == 'D':
-    df1 = df1.loc[(df1['(Cd)'] == '6.1')|(df1['(Cd)'] == '2.5')|(df1['(Cd)'] == '8.6')|(df1['(Cd)'] == '15.21')]
+elif nome_revista[0] == 'D':
+    df1 = df1.loc[(df1['(Cd)'] == '33.1')|(df1['(Cd)'] == '34')]
 
 
 
@@ -55,19 +56,35 @@ df1 = df1[df1['(71)'].str.contains('BR')]
 df1['(21)'] = df1['(21)'].str.strip()
 df1['(21)'] = df1['(21)'].str.slice(start=5)
 
-df1['(21)'] = df1['(21)'].str.replace('A2','')
+kind_codes = ['A2','A8','B1','B8','C8','E2','E8','F1','F8','G8','U2','U8','Y1','Y8','Z8']
+
 df1['(21)'] = df1['(21)'].str.replace('U2','')
 df1['(21)'] = df1['(21)'].str.replace('A8','')
+df1['(21)'] = df1['(21)'].str.replace('A2','')
+df1['(21)'] = df1['(21)'].str.replace('A8','')
+df1['(21)'] = df1['(21)'].str.replace('B1','')
+df1['(21)'] = df1['(21)'].str.replace('B8','')
+df1['(21)'] = df1['(21)'].str.replace('C8','')
+df1['(21)'] = df1['(21)'].str.replace('E2','')
+df1['(21)'] = df1['(21)'].str.replace('E8','')
+df1['(21)'] = df1['(21)'].str.replace('F1','')
+df1['(21)'] = df1['(21)'].str.replace('F8','')
+df1['(21)'] = df1['(21)'].str.replace('G8','')
+df1['(21)'] = df1['(21)'].str.replace('U2','')
+df1['(21)'] = df1['(21)'].str.replace('U8','')
+df1['(21)'] = df1['(21)'].str.replace('Y1','')
+df1['(21)'] = df1['(21)'].str.replace('Y8','')
+df1['(21)'] = df1['(21)'].str.replace('Z8','')
 
 df1_list = df1['(21)'].to_list()
 l = []
 
 if nome_revista[0] == 'D':
     for i in df1_list:
-        l.append(main_patente(i))
+        l.append(main_desenho(i))
 elif nome_revista[0] == 'P':
     for i in df1_list:
-        l.append(main_desenho(i))
+        l.append(main_patente(i))
 
 
 df1['Nome do Procurador'] = l

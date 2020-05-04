@@ -2,27 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import urllib3
 from requests.cookies import cookiejar_from_dict
+import pickle
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-headers = {
-'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0',
-'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-}
-
-
-def create_cookie(headers = headers):
-    url_get = 'https://gru.inpi.gov.br/pePI/servlet/LoginController?action=login'
-    with requests.Session() as s:
-        s.headers.update(headers)
-        s.get(url_get, headers = headers, verify=False)
-        cookieJar = s.cookies.get_dict()
-        cookieJar = cookiejar_from_dict(cookieJar)
-        s.headers.update({'Cookie':'JSESSIONID={};'.format(cookieJar['JSESSIONID'])})
-        return s
-
-
-def busca_pedido(cod,s,headers=headers):
+def busca_pedido(cod):
     url_post = 'https://gru.inpi.gov.br/pePI/servlet/PatenteServletController'
 
     payload = { 'FormaPesquisa':'todasPalavras',
@@ -31,12 +15,17 @@ def busca_pedido(cod,s,headers=headers):
                 'NumPedido':cod
                 }
 
-    x = s.post(url_post, data = payload, verify=False)
+    with open('params.pickle', 'rb') as p:
+        params = pickle.load(p)
+    
+    s = requests.Session()
+    x = s.post(url_post, headers=params['headers'], cookies = params['cookies'],data = payload, verify=False)
+
     return x
 
 
 
-def busca_(cod,s,headers=headers):
+def busca_(cod):
     url_post = 'https://gru.inpi.gov.br/pePI/servlet/PatenteServletController?Action=detail&CodPedido={}'.format(cod)
 
     payload = { 'FormaPesquisa':'todasPalavras',
@@ -45,8 +34,11 @@ def busca_(cod,s,headers=headers):
                 'NumPedido':cod
                 }
 
+    with open('params.pickle', 'rb') as p:
+        params = pickle.load(p)
 
-    x = s.post(url_post, data = payload, verify=False)
+    s = requests.Session()
+    x = s.post(url_post, headers=params['headers'], cookies = params['cookies'],data = payload, verify=False)
 
     return x
 
