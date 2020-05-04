@@ -1,6 +1,6 @@
 from functools import reduce
 import pandas as pd 
-from main import main_patente
+from main import main_patente, main_desenho
 
 
 def sum_list(a):
@@ -43,7 +43,12 @@ df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 df1['(Cd)'] = df1['(Cd)'].apply(lambda x: x[4:])
 df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 
-df1 = df1.loc[(df1['(Cd)'] == '6.1')|(df1['(Cd)'] == '2.5')|(df1['(Cd)'] == '8.6')|(df1['(Cd)'] == '15.21')]
+if nome_revista[0] == 'P':
+    df1 = df1.loc[(df1['(Cd)'] == '6.1')|(df1['(Cd)'] == '2.5')|(df1['(Cd)'] == '8.6')|(df1['(Cd)'] == '15.21')]
+elif nome_revista == 'D':
+    df1 = df1.loc[(df1['(Cd)'] == '6.1')|(df1['(Cd)'] == '2.5')|(df1['(Cd)'] == '8.6')|(df1['(Cd)'] == '15.21')]
+
+
 
 df1 = df1[df1['(71)'].str.contains('BR')]
 
@@ -56,10 +61,17 @@ df1['(21)'] = df1['(21)'].str.replace('A8','')
 
 df1_list = df1['(21)'].to_list()
 l = []
-for i in df1_list:
-    l.append(main_patente(i))
+
+if nome_revista[0] == 'D':
+    for i in df1_list:
+        l.append(main_patente(i))
+elif nome_revista[0] == 'P':
+    for i in df1_list:
+        l.append(main_desenho(i))
+
+
 df1['Nome do Procurador'] = l
 df1 = df1[['(Cd)', '(71)', '(21)', 'Nome do Procurador']]
 df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 df1 = df1.rename(columns = {'(Cd)':'Código', '(71)':'Nome do Depositante', '(21)':'Número do Pedido'})
-df1.to_excel('{}.xlsx'.format(nome_revista[4:]), index = False)
+df1.to_excel('{}.xlsx'.format(nome_revista[:5]), index = False)

@@ -1,35 +1,29 @@
 import requests
 from bs4 import BeautifulSoup
+import urllib3
+from requests.cookies import cookiejar_from_dict
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 headers = {
-    'Host': 'gru.inpi.gov.br',
-    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Language': 'pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Referer': 'https://gru.inpi.gov.br/pePI/jsp/desenhos/DesenhoSearchBasico.jsp',
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': '173',
-    'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1',
-    'cookie':'JSESSIONID=228031808983A33AC687CB7C58E23E7D.tecoa;'
-    }
-
-cookies = {
-                'JSESSIONID':'228031808983A33AC687CB7C58E23E7D.tecoa',
-
-            }
-
-def cookie(url='https://gru.inpi.gov.br/pePI/jsp/patentes/PatenteSearchBasico.jsp', headers=headers, cookies=cookies):
-        jsession = requests.get(url, verify=False).headers['Set-Cookie'].split(';')
-        cookies['JSESSIONID'] = jsession[0][11:]
-        headers['Cookie'] += jsession[0]
-
-def busca_pedido(cod, headers=headers, cookies=cookies):
-    url = 'https://gru.inpi.gov.br/pePI/servlet/DesenhoServletController'
+'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0',
+'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+}
 
 
+def create_cookie(headers = headers):
+    url_get = 'https://gru.inpi.gov.br/pePI/servlet/LoginController?action=login'
+    with requests.Session() as s:
+        s.headers.update(headers)
+        s.get(url_get, headers = headers, verify=False)
+        cookieJar = s.cookies.get_dict()
+        cookieJar = cookiejar_from_dict(cookieJar)
+        s.headers.update({'Cookie':'JSESSIONID={};'.format(cookieJar['JSESSIONID'])})
+        return s
+
+
+def busca_pedido(cod,s,headers=headers):
+    url_post = 'https://gru.inpi.gov.br/pePI/servlet/DesenhoServletController'
 
     payload = { 'FormaPesquisa':'todasPalavras',
                 'botao':'+pesquisar+%BB+',
@@ -37,15 +31,13 @@ def busca_pedido(cod, headers=headers, cookies=cookies):
                 'NumPedido':cod
                 }
 
-    with requests.Session() as s:
-        x = s.post(url, headers=headers, cookies=cookies, data = payload, verify=False)
-
+    x = s.post(url_post, data = payload, verify=False)
     return x
 
 
 
-def busca_(cod, headers=headers, cookies=cookies):
-    url = 'https://gru.inpi.gov.br/pePI/servlet/DesenhoServletController?Action=detail&CodPedido={}'.format(cod)
+def busca_(cod,s,headers=headers):
+    url_post = 'https://gru.inpi.gov.br/pePI/servlet/DesenhoServletController?Action=detail&CodPedido={}'.format(cod)
 
     payload = { 'FormaPesquisa':'todasPalavras',
                 'botao':'+pesquisar+%BB+',
@@ -53,8 +45,8 @@ def busca_(cod, headers=headers, cookies=cookies):
                 'NumPedido':cod
                 }
 
-    with requests.Session() as s:
-        x = s.post(url, headers=headers, cookies=cookies, data = payload, verify=False)
+
+    x = s.post(url_post, data = payload, verify=False)
 
     return x
 
