@@ -3,6 +3,7 @@ import pandas as pd
 from main import main_patente, main_desenho
 from create_cookie import create_cookie
 
+create_cookie()
 
 def sum_list(a):
     x = {}
@@ -12,7 +13,7 @@ def sum_list(a):
 
 nome_revista = input('Numero da revista:')
 nome_revista = nome_revista.upper()
-a = open(nome_revista+'.txt', 'r', encoding='utf-8')
+a = open('revistas/'+nome_revista+'.txt', 'r', encoding='utf-8')
 
 
 list_cd = []
@@ -56,8 +57,6 @@ df1 = df1[df1['(71)'].str.contains('BR')]
 df1['(21)'] = df1['(21)'].str.strip()
 df1['(21)'] = df1['(21)'].str.slice(start=5)
 
-kind_codes = ['A2','A8','B1','B8','C8','E2','E8','F1','F8','G8','U2','U8','Y1','Y8','Z8']
-
 df1['(21)'] = df1['(21)'].str.replace('A8|A2|B1|B8|C8|E2|E8|F1|F8|G8|U2|U8|Y1|Y8|Z8','')
 
 df1_list = df1['(21)'].to_list()
@@ -75,4 +74,4 @@ df1['Nome do Procurador'] = l
 df1 = df1[['(Cd)', '(71)', '(21)', 'Nome do Procurador']]
 df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 df1 = df1.rename(columns = {'(Cd)':'Código', '(71)':'Nome do Depositante', '(21)':'Número do Pedido'})
-df1.to_excel('{}.xlsx'.format(nome_revista[:5]), index = False)
+df1.to_excel('xlsx/{}.xlsx'.format(nome_revista[:5]), index = False)
