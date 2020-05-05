@@ -58,23 +58,7 @@ df1['(21)'] = df1['(21)'].str.slice(start=5)
 
 kind_codes = ['A2','A8','B1','B8','C8','E2','E8','F1','F8','G8','U2','U8','Y1','Y8','Z8']
 
-df1['(21)'] = df1['(21)'].str.replace('U2','')
-df1['(21)'] = df1['(21)'].str.replace('A8','')
-df1['(21)'] = df1['(21)'].str.replace('A2','')
-df1['(21)'] = df1['(21)'].str.replace('A8','')
-df1['(21)'] = df1['(21)'].str.replace('B1','')
-df1['(21)'] = df1['(21)'].str.replace('B8','')
-df1['(21)'] = df1['(21)'].str.replace('C8','')
-df1['(21)'] = df1['(21)'].str.replace('E2','')
-df1['(21)'] = df1['(21)'].str.replace('E8','')
-df1['(21)'] = df1['(21)'].str.replace('F1','')
-df1['(21)'] = df1['(21)'].str.replace('F8','')
-df1['(21)'] = df1['(21)'].str.replace('G8','')
-df1['(21)'] = df1['(21)'].str.replace('U2','')
-df1['(21)'] = df1['(21)'].str.replace('U8','')
-df1['(21)'] = df1['(21)'].str.replace('Y1','')
-df1['(21)'] = df1['(21)'].str.replace('Y8','')
-df1['(21)'] = df1['(21)'].str.replace('Z8','')
+df1['(21)'] = df1['(21)'].str.replace('A8|A2|B1|B8|C8|E2|E8|F1|F8|G8|U2|U8|Y1|Y8|Z8','')
 
 df1_list = df1['(21)'].to_list()
 l = []
