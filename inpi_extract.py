@@ -1,5 +1,6 @@
 from functools import reduce
 import pandas as pd 
+import os
 from main import main_patente, main_desenho
 from create_cookie import create_cookie
 
@@ -12,7 +13,13 @@ def sum_list(a):
     return [x]
 
 nome_revista = input('Numero da revista:')
+os.system('./download.sh {0} {1}'.format(nome_revista[:2], nome_revista[2:]))
+
 nome_revista = nome_revista.upper()
+
+if 'I' in nome_revista:
+    nome_revista = nome_revista.replace('I', '')
+
 a = open('revistas/'+nome_revista+'.txt', 'r', encoding='utf-8')
 
 
@@ -75,3 +82,5 @@ df1 = df1[['(Cd)', '(71)', '(21)', 'Nome do Procurador']]
 df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 df1 = df1.rename(columns = {'(Cd)':'Código', '(71)':'Nome do Depositante', '(21)':'Número do Pedido'})
 df1.to_excel('xlsx/{}.xlsx'.format(nome_revista[:5]), index = False)
+
+os.system('./exclude.sh')
