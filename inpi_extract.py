@@ -13,7 +13,7 @@ def sum_list(a):
     return [x]
 
 nome_revista = input('Numero da revista:')
-os.system('./download.sh {0} {1}'.format(nome_revista[:2], nome_revista[2:]))
+os.system('/home/ubuntu/inpi_extract/download.sh {0} {1}'.format(nome_revista[:2], nome_revista[2:]))
 
 nome_revista = nome_revista.upper()
 
@@ -83,4 +83,4 @@ df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 df1 = df1.rename(columns = {'(Cd)':'Código', '(71)':'Nome do Depositante', '(21)':'Número do Pedido'})
 df1.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:5]), index = False)
 
-os.system('./exclude.sh')
+os.system('/home/ubuntu/inpi_extract/exclude.sh')
