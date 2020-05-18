@@ -14,7 +14,7 @@ def main_patente(cod):
     cod_ = busca_patente(cod_)
     nome = nome_procurador_patente(cod_)
     print(nome)
-    return 
+    return nome
 
 
 def main_desenho(cod):
