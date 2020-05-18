@@ -1,1 +1,1 @@
-rm -r revistas/*
+rm -r /home/ubuntu/inpi_extract/revistas/*
