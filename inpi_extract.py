@@ -80,7 +80,10 @@ elif nome_revista[0] == 'D':
 
 
 
-df1 = df1[df1['(71)'].str.contains('BR')]
+try:
+    df1 = df1[df1['(71)'].str.contains('BR')]
+except:
+    df1 = df1[df1['(73)'].str.contains('BR')]
 
 df1['(21)'] = df1['(21)'].str.strip()
 df1['(21)'] = df1['(21)'].str.slice(start=5)
@@ -99,9 +102,9 @@ elif nome_revista[0] == 'P':
 
 
 df1['Nome do Procurador'] = l
-df1 = df1[['(Cd)', '(71)', '(21)', 'Nome do Procurador']]
+df1 = df1[['(Cd)', '(71)', '(73)', '(21)', 'Nome do Procurador']]
 df1[df1.columns] = df1.apply(lambda x: x.str.strip())
-df1 = df1.rename(columns = {'(Cd)':'Código', '(71)':'Nome do Depositante', '(21)':'Número do Pedido'})
+df1 = df1.rename(columns = {'(Cd)':'Código', '(71)':'Nome do Depositante', '(73)':'Nome do Autor', '(21)':'Número do Pedido'})
 df1.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:5]), index = False)
 
 os.system('/home/ubuntu/inpi_extract/exclude.sh')
