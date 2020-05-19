@@ -80,10 +80,12 @@ elif nome_revista[0] == 'D':
 
 
 
-try:
-    df1 = df1[df1['(71)'].str.contains('BR')]
-except:
-    df1 = df1[df1['(73)'].str.contains('BR')]
+
+df71 = df1[df1['(71)'].str.contains('BR', na=False)]
+df73 = df1[df1['(73)'].str.contains('BR', na=False)]
+df1 = pd.concat([df71, df73])
+df1['(21)'] = df1['(21)'].combine_first(df1['(11)'])
+
 
 df1['(21)'] = df1['(21)'].str.strip()
 df1['(21)'] = df1['(21)'].str.slice(start=5)
