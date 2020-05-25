@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def get_marca(nome_revista):
-    tree = ET.parse(nome_revista)
+    tree = ET.parse('/home/ubuntu/inpi_extract/revistas/'+nome_revista+'.xml')
     root = tree.getroot()
 
     list_proc = []
