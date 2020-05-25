@@ -1,0 +1,24 @@
+import xml.etree.ElementTree as ET
+import pandas as pd
+
+
+def get_marca(nome_revista):
+    tree = ET.parse(nome_revista)
+    root = tree.getroot()
+
+    list_proc = []
+    dict_attrib = {}
+
+    for a in root.iter():
+        if a.tag == 'processo':
+            dict_attrib = {}
+            dict_attrib.update(a.attrib)
+            for b in a.iter():
+                dict_attrib.update(b.attrib)
+                if b.tag == 'procurador':
+                    dict_attrib.update({b.tag : b.text})
+            list_proc.append(dict_attrib)
+    
+    df = pd.DataFrame(list_proc)
+
+    df.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:5]))

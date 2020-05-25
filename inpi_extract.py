@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from main import main_patente, main_desenho
 from create_cookie import create_cookie
+from xml_extract import get_marca
 
 create_cookie()
 
@@ -19,6 +20,11 @@ nome_revista = nome_revista.upper()
 
 if 'I' in nome_revista:
     nome_revista = nome_revista.replace('I', '')
+elif 'RM' in nome_revista:
+    a = open('/home/ubuntu/inpi_extract/revistas/'+nome_revista+'.xml', 'r', encoding='utf-8')
+    get_marca(nome_revista)
+    os.system('/home/ubuntu/inpi_extract/exclude.sh')
+    exit() 
 
 a = open('/home/ubuntu/inpi_extract/revistas/'+nome_revista+'.txt', 'r', encoding='utf-8')
 
