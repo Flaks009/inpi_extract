@@ -115,6 +115,6 @@ df1[df1.columns] = df1.apply(lambda x: x.str.strip())
 df1 = df1.rename(columns = {'(Cd)':'codigo', '(71)':'nome_do_depositante', '(73)':'nome_do_autor', '(21)':'numero_do_pedido'})
 df1['numero_rpi'] = nome_revista[2:]
 df1.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:6]), index = False)
-df1.to_csv('/home/ubuntu/inpi_extract/xlsx/{}.csv'.format(nome_revista[:6]), index = False)
+df1.to_csv('/home/ubuntu/inpi_extract/xlsx/{}.csv'.format(nome_revista[:6]), index = False, sep=';')
 
 os.system('/home/ubuntu/inpi_extract/exclude.sh')
