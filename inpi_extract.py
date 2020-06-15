@@ -112,7 +112,9 @@ elif nome_revista[0] == 'P':
 df1['Nome do Procurador'] = l
 df1 = df1[['(Cd)', '(71)', '(73)', '(21)', 'Nome do Procurador']]
 df1[df1.columns] = df1.apply(lambda x: x.str.strip())
-df1 = df1.rename(columns = {'(Cd)':'Código', '(71)':'Nome do Depositante', '(73)':'Nome do Autor', '(21)':'Número do Pedido'})
+df1 = df1.rename(columns = {'(Cd)':'codigo', '(71)':'nome_do_depositante', '(73)':'nome_do_autor', '(21)':'numero_do_pedido'})
+df1['numero_rpi'] = nome_revista[2:]
 df1.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:6]), index = False)
+df1.to_csv('/home/ubuntu/inpi_extract/xlsx/{}.csv'.format(nome_revista[:6]), index = False)
 
 os.system('/home/ubuntu/inpi_extract/exclude.sh')
