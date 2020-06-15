@@ -22,3 +22,4 @@ def get_marca(nome_revista):
     df = pd.DataFrame(list_proc)
 
     df.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:5]))
+    df.to_csv('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:5]), index=False)
