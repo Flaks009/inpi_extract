@@ -11,7 +11,7 @@ def get_marca(nome_revista):
 
     for a in root.iter():
         if a.tag == 'processo':
-            dict_attrib = {}
+            dict_attrib = {'numero_rpi':nome_revista}
             dict_attrib.update(a.attrib)
             for b in a.iter():
                 dict_attrib.update(b.attrib)
