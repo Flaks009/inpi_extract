@@ -17,7 +17,7 @@ def get_marca(nome_revista):
                 dict_attrib.update(b.attrib)
                 if b.tag == 'procurador':
                     dict_attrib.update({b.tag : b.text})
-            dict_attrib.update({'numero_rpi':nome_revista})
+            dict_attrib.update({'numero_rpi':nome_revista[2:]})
             list_proc.append(dict_attrib)
     
     df = pd.DataFrame(list_proc)
