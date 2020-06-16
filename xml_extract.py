@@ -11,12 +11,13 @@ def get_marca(nome_revista):
 
     for a in root.iter():
         if a.tag == 'processo':
-            dict_attrib = {'numero_rpi':nome_revista}
+            dict_attrib = {}
             dict_attrib.update(a.attrib)
             for b in a.iter():
                 dict_attrib.update(b.attrib)
                 if b.tag == 'procurador':
                     dict_attrib.update({b.tag : b.text})
+            dict_attrib.update({'numero_rpi':nome_revista})
             list_proc.append(dict_attrib)
     
     df = pd.DataFrame(list_proc)
