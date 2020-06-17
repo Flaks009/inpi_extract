@@ -1,6 +1,7 @@
 from functools import reduce
 import pandas as pd 
 import os
+import sys
 from main import main_patente, main_desenho
 from create_cookie import create_cookie
 from xml_extract import get_marca
@@ -13,7 +14,8 @@ def sum_list(a):
         x = dict(x, **i)
     return [x]
 
-nome_revista = input('Numero da revista:')
+#nome_revista = input('Numero da revista:')
+nome_revista = sys.argv[1]
 os.system('/home/ubuntu/inpi_extract/download.sh {0} {1}'.format(nome_revista[:2], nome_revista[2:]))
 
 nome_revista = nome_revista.upper()
