@@ -45,4 +45,4 @@ def get_marca(nome_revista):
 
     df = df.append(list_proc)
 
-    df.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:6]), index=False, sep=";")
+    df.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:6]), index=False)
