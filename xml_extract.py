@@ -5,7 +5,7 @@ import pandas as pd
 def get_marca(nome_revista):
     tree = ET.parse('/home/ubuntu/inpi_extract/revistas/'+nome_revista+'.xml')
     root = tree.getroot()
-    columns = {
+    columns = [
         'uf',
         'codigo',
         'pais',
@@ -25,7 +25,7 @@ def get_marca(nome_revista):
         'natureza',
         'numero',
         'codigoServico',
-        'data'}
+        'data']
     df = pd.DataFrame(columns = columns)
 
 
@@ -44,5 +44,7 @@ def get_marca(nome_revista):
             list_proc.append(dict_attrib)
 
     df = df.append(list_proc)
+    df = df[columns]
+
 
     df.to_excel('/home/ubuntu/inpi_extract/xlsx/{}.xlsx'.format(nome_revista[:6]), index=False)
