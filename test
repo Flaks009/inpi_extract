@@ -1,8 +1,8 @@
-0 6 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2573
-40 6 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2574
-0 7 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2575
-40 7 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2576
-40 8 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2577
-0 9 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2578
-40 9 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2579
-0 10 * * * usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py < p2580
+37 16 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2573
+0 17 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2574
+30 17 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2575
+0 18 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2576
+30 18 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2577
+0 19 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2578
+30 19 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2579
+0 20 * * * /usr/bin/python3  /home/ubuntu/inpi_extract/inpi_extract.py p2580
