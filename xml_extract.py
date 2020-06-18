@@ -6,26 +6,27 @@ def get_marca(nome_revista):
     tree = ET.parse('/home/ubuntu/inpi_extract/revistas/'+nome_revista+'.xml')
     root = tree.getroot()
     columns = [
-        'uf',
-        'codigo',
-        'pais',
-        'numero_rpi',
-        'edicao',
-        'data-recebimento-inpi',
-        'data-vigencia',
-        'numero-inscricao-internacional',
-        'nome-razao-social',
         'nome',
-        'data-concessao',
+        'edicao',
         'procurador',
-        'marca',
-        'data-deposito',
         'processo',
-        'apresentacao',
-        'natureza',
-        'numero',
+        'numero_rpi',
+        'data-vigencia',
+        'nome-razao-social',
+        'data-deposito',
+        'data',
         'codigoServico',
-        'data']
+        'pais',
+        'apresentacao',
+        'marca',
+        'data-concessao',
+        'numero-inscricao-internacional',
+        'uf',
+        'data-recebimento-inpi',
+        'natureza',
+        'codigo',
+        'numero'
+        ]
     df = pd.DataFrame(columns = columns)
 
 
